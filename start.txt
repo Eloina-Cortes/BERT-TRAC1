@@ -1,0 +1,10 @@
+!pip install -U transformers datasets autotrain-advanced accelerate torch
+!pip install -U transformers datasets accelerate torch scikit-learn pandas
+
+1.- ejecutar importar-dataset-drive.py
+2. ejecutar si-funciona.py
+3.- test-bert-si-funciona.py
+
+docker:
+pip install -U transformers datasets autotrain-advanced accelerate torch
+pip install -U transformers datasets accelerate torch scikit-learn pandas
