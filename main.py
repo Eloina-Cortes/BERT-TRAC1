@@ -11,7 +11,7 @@ os.environ["WANDB_DISABLED"] = "true"
 import warnings
 warnings.filterwarnings('ignore')
 
-print("🚀 Iniciando entrenamiento BERT...")
+print("Iniciando entrenamiento BERT...")
 
 # 1. Cargar datos
 train_df = pd.read_csv('data/agr_en_train.csv')
@@ -26,14 +26,14 @@ label_map = {'OAG': 0, 'NAG': 1, 'CAG': 2}
 train_df['labels'] = train_df['labels'].map(label_map)
 dev_df['labels'] = dev_df['labels'].map(label_map)
 
-print(f"✅ Datos cargados: {len(train_df)} entrenamiento, {len(dev_df)} validación")
+print(f" Datos cargados: {len(train_df)} entrenamiento, {len(dev_df)} validación")
 
 # 2. Configurar modelo
 model_name = "google-bert/bert-base-uncased"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=3)
 
-print("✅ Modelo BERT cargado")
+print(" Modelo BERT cargado")
 
 # 3. Tokenizar de forma simple
 def tokenize_texts(texts, labels):
@@ -55,7 +55,7 @@ def tokenize_texts(texts, labels):
 train_dataset = tokenize_texts(train_df['text'], train_df['labels'])
 eval_dataset = tokenize_texts(dev_df['text'], dev_df['labels'])
 
-print("✅ Datos tokenizados")
+print(" Datos tokenizados")
 
 # 4. Configuración simple de entrenamiento
 training_args = TrainingArguments(
@@ -88,31 +88,31 @@ trainer = Trainer(
     compute_metrics=compute_metrics,
 )
 
-print("✅ Trainer configurado")
+print("Trainer configurado")
 
 # 7. ENTRENAR
-print("\n🔥 INICIANDO ENTRENAMIENTO...")
+print("\n INICIANDO ENTRENAMIENTO...")
 print("="*50)
 
 trainer.train()
 
-print("\n✅ ENTRENAMIENTO COMPLETADO!")
+print("\n ENTRENAMIENTO COMPLETADO!")
 
 # 8. Evaluar
 try:
     eval_result = trainer.evaluate()
-    print(f"\n📊 Accuracy final: {eval_result['eval_accuracy']:.4f}")
+    print(f"\n Accuracy final: {eval_result['eval_accuracy']:.4f}")
 except:
-    print("📊 Evaluación manual...")
+    print(" Evaluación manual...")
 
 # 9. Guardar modelo
 trainer.save_model('./agresion-detector')
 tokenizer.save_pretrained('./agresion-detector')
 
-print("💾 Modelo guardado en: ./agresion-detector")
+print(" Modelo guardado en: ./agresion-detector")
 
 # 10. Prueba rápida
-print("\n🧪 PROBANDO MODELO...")
+print("\n PROBANDO MODELO...")
 try:
     from transformers import pipeline
     classifier = pipeline('text-classification', model='./agresion-detector')
@@ -134,7 +134,7 @@ try:
 except Exception as e:
     print(f"Error en prueba: {e}")
 
-print("\n🎉 ¡LISTO! Tu modelo está entrenado y guardado.")
+print("\n ¡LISTO! Tu modelo está entrenado y guardado.")
 print("\nPara usarlo:")
 print("from transformers import pipeline")
 print("classifier = pipeline('text-classification', model='./agresion-detector')")
