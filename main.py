@@ -139,3 +139,9 @@ print("\nPara usarlo:")
 print("from transformers import pipeline")
 print("classifier = pipeline('text-classification', model='./agresion-detector')")
 print("resultado = classifier('tu texto')")
+
+# ─────────────────────────────────────────────────────────────
+# 11. MATRICES DE ATENCIÓN  ← las 2 únicas líneas nuevas
+# ─────────────────────────────────────────────────────────────
+from matrizaction import generar_matrices_atencion
+generar_matrices_atencion()
